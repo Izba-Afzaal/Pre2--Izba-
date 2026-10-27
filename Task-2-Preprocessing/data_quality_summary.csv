@@ -1,0 +1,10 @@
+column,missing_values,missing_percentage,data_type
+article_id,0,0,str
+source,0,0,str
+title,0,0,str
+description,15,0.02,str
+author,97874,97.87,str
+url,0,0,str
+published_at,0,0,str
+timezone,0,0,str
+scraped_at,0,0,str
