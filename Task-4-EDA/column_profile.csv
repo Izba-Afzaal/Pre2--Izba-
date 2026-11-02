@@ -1,0 +1,12 @@
+,dtype,non_null,missing,missing_pct,unique_non_null
+article_id,str,99582,0,0.0,99582
+source,str,99582,0,0.0,1338
+title,str,99582,0,0.0,99302
+description,str,99582,0,0.0,99309
+author,str,2115,97467,97.88,636
+url,str,99582,0,0.0,99582
+published_at,str,99582,0,0.0,13736
+timezone,str,99582,0,0.0,1
+scraped_at,str,99582,0,0.0,99582
+domain,str,99582,0,0.0,49
+category,str,99582,0,0.0,5

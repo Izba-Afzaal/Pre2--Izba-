@@ -1,0 +1,6 @@
+,_title_chars,_title_words,_content_chars,_content_words,_publish_to_scrape_minutes
+_title_chars,1.0,0.894,0.284,0.239,-0.033
+_title_words,0.894,1.0,0.252,0.27,-0.095
+_content_chars,0.284,0.252,1.0,0.988,-0.057
+_content_words,0.239,0.27,0.988,1.0,-0.076
+_publish_to_scrape_minutes,-0.033,-0.095,-0.057,-0.076,1.0
