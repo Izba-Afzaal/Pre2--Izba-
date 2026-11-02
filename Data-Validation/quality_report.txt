@@ -1,0 +1,105 @@
+==============================================================================
+DATA VALIDATION & QUALITY REPORT
+Generated : 2026-10-29 00:12
+File      : 100k_news_cleaned.csv   |   Records: 100,000   |   Content column: description
+Contract  : news_articles v1.0
+==============================================================================
+
+--- 1. SCHEMA CHECK (column / type / required) ---
+       field     type  required  non_empty_%  type_valid_%
+  article_id   string      True       100.00        100.00
+      source   string      True       100.00        100.00
+       title   string      True       100.00        100.00
+ description   string      True        99.98        100.00
+      author   string     False         2.13        100.00
+         url      url      True       100.00        100.00
+published_at datetime      True       100.00         99.83
+    timezone   string     False       100.00        100.00
+  scraped_at datetime      True       100.00        100.00
+
+--- 2a. ERROR CHECKS (record is rejected) ---
+                          check  total_records  failed_records  pass_%
+             article_id_present         100000               0  100.00
+article_id_unique (primary key)         100000               0  100.00
+                    url_present         100000               0  100.00
+               url_valid_format         100000               0  100.00
+                  title_present         100000               0  100.00
+                 source_present         100000               0  100.00
+              content_not_blank         100000              15   99.98
+          published_at_parsable         100000             171   99.83
+        published_at_not_future         100000               0  100.00
+   published_at_not_before_2015         100000             539   99.46
+       published_before_scraped         100000               0  100.00
+            scraped_at_parsable         100000               0  100.00
+
+--- 2b. WARNING CHECKS (record is kept but flagged) ---
+                check  total_records  failed_records  pass_%
+   title_min_65_chars         100000           17368   82.63
+content_min_200_chars         100000           99159    0.84
+    no_html_leftovers         100000               0  100.00
+   no_encoding_errors         100000               0  100.00
+
+--- 3. DUPLICATE STORIES (earliest published copy is kept) ---
+Duplicate copies ignored       : 650 (0.65%)
+  by same canonical URL        : 0
+  by same normalized title     : 650
+  of which from other publisher: 191
+Publishers whose copy was kept most often:
+Topic history      210
+NBC News Search     98
+Al Jazeera          87
+Current             60
+Deutsche Welle      60
+
+--- 4. FINAL RECORD STATUS ---
+             status  records     %
+              VALID      524  0.52
+VALID_WITH_WARNINGS    98114 98.11
+  DUPLICATE_IGNORED      650  0.65
+     REJECTED_ERROR      712  0.71
+Final usable records (valid + warnings): 98,638 (98.64%)
+
+--- 5. DATA CONTRACT COMPLIANCE (dataset level) ---
+                                     rule  actual required result
+                             error_rate_%    0.71   <= 5.0   PASS
+                         duplicate_rate_%    0.65   <= 5.0   PASS
+min required completeness_% (description)   99.98  >= 99.0   PASS
+
+OVERALL CONTRACT RESULT: PASS
+
+Optional-field completeness (info): author=2.1%, timezone=100.0%
+Distinct publishers (after normalizing 'source'): 254 (raw source values: 1,347)
+
+--- 6. DATABASE INTEGRITY (SQLite) ---
+Database: news_scraping.sqlite3
+
+  Table 'articles': 2,559 rows
+  Primary key declared : ['id']
+  Columns (name / type / NOT NULL):
+    - id              INTEGER    
+    - url             TEXT       NOT NULL
+    - source          TEXT       
+    - title           TEXT       
+    - author          TEXT       
+    - published       TEXT       
+    - article_text    TEXT       
+    - content_hash    TEXT       
+    - status          TEXT       
+    - attempts        INTEGER    
+    - discovered_at   TEXT       
+    - scraped_at      TEXT       
+    - error           TEXT       
+  url: NULL = 0, duplicate values = 0
+  Row count differs from CSV: DB=2,559 vs CSV=100,000
+
+  Table 'state': 87 rows
+  Primary key declared : ['key']
+  Columns (name / type / NOT NULL):
+    - key             TEXT       
+    - value           TEXT       
+  Row count differs from CSV: DB=87 vs CSV=100,000
+
+  PRAGMA integrity_check : ok
+  Foreign key violations : 0
+
+Saved in folder 'validation_output': clean_news_final.csv, rejected_errors.csv, duplicates_ignored.csv, quality_report.csv, quality_report.txt, data_contract.json

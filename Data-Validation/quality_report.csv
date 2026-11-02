@@ -1,0 +1,17 @@
+﻿severity,check,total_records,failed_records,pass_%
+ERROR,article_id_present,100000,0,100.0
+ERROR,article_id_unique (primary key),100000,0,100.0
+ERROR,url_present,100000,0,100.0
+ERROR,url_valid_format,100000,0,100.0
+ERROR,title_present,100000,0,100.0
+ERROR,source_present,100000,0,100.0
+ERROR,content_not_blank,100000,15,99.98
+ERROR,published_at_parsable,100000,171,99.83
+ERROR,published_at_not_future,100000,0,100.0
+ERROR,published_at_not_before_2015,100000,539,99.46
+ERROR,published_before_scraped,100000,0,100.0
+ERROR,scraped_at_parsable,100000,0,100.0
+WARNING,title_min_65_chars,100000,17368,82.63
+WARNING,content_min_200_chars,100000,99159,0.84
+WARNING,no_html_leftovers,100000,0,100.0
+WARNING,no_encoding_errors,100000,0,100.0
