@@ -1,0 +1,10 @@
+column,non_missing,missing,completeness_pct
+article_id,100000,0,100.0
+source,100000,0,100.0
+title,100000,0,100.0
+description,100000,0,100.0
+author,2126,97874,2.13
+url,100000,0,100.0
+published_at,100000,0,100.0
+timezone,100000,0,100.0
+scraped_at,100000,0,100.0

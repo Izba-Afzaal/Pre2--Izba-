@@ -1,0 +1,29 @@
+{
+  "contract_name": "news_articles_cleaned",
+  "contract_version": "1.1.0-rss",
+  "run_timestamp_utc": "2026-10-30T07:02:42.477230+00:00",
+  "text_column_used": "description",
+  "input_rows": 100000,
+  "input_columns": 9,
+  "total_issues": 98346,
+  "affected_rows": 97885,
+  "issues_by_severity": {
+    "INFO": 97874,
+    "WARNING": 472
+  },
+  "issues_by_rule": {
+    "AUTH_001": 97874,
+    "DUP_002": 409,
+    "DUP_003": 63
+  },
+  "dispositions": {
+    "ACCEPT": 99582,
+    "WARNING": 0,
+    "QUARANTINE": 0,
+    "DUPLICATE": 418
+  },
+  "usable_rows_accept_plus_warning": 99582,
+  "target_rows": 100000,
+  "shortfall_vs_target": 418,
+  "usable_pct": 99.58
+}

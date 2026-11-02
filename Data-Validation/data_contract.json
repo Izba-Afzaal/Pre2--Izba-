@@ -1,0 +1,185 @@
+{
+  "contract_name": "news_articles_cleaned",
+  "contract_version": "1.1.0-rss",
+  "input_file": "100k_news_cleaned.csv",
+  "target_rows": 100000,
+  "columns": {
+    "article_id": {
+      "required": true,
+      "type": "string",
+      "unique": true
+    },
+    "source": {
+      "required": true,
+      "type": "string"
+    },
+    "title": {
+      "required": true,
+      "type": "string"
+    },
+    "description": {
+      "required": false,
+      "type": "string"
+    },
+    "author": {
+      "required": false,
+      "type": "string"
+    },
+    "url": {
+      "required": true,
+      "type": "http(s) url"
+    },
+    "published_at": {
+      "required": true,
+      "type": "datetime (parseable, plausible)"
+    },
+    "timezone": {
+      "required": false,
+      "type": "IANA zone name or +HH:MM offset"
+    },
+    "scraped_at": {
+      "required": false,
+      "type": "datetime (parseable)"
+    }
+  },
+  "text_column_candidates": [
+    "content",
+    "text",
+    "article_text",
+    "content_clean",
+    "description"
+  ],
+  "id_column": "article_id",
+  "thresholds": {
+    "min_title_chars_warning": 5,
+    "max_title_chars_warning": 300,
+    "min_content_chars_warning": 0,
+    "min_published_date": "1990-01-01",
+    "future_tolerance_hours": 24,
+    "published_after_scrape_tolerance_hours": 24,
+    "max_url_chars": 2048,
+    "dedupe_min_title_chars": 25,
+    "dedupe_title_window_days": 7,
+    "dedupe_min_text_chars": 150,
+    "dedupe_text_prefix_chars": 300
+  },
+  "known_error_patterns": [
+    "access denied",
+    "enable javascript",
+    "captcha",
+    "robot check",
+    "403 forbidden",
+    "page not found",
+    "just a moment",
+    "verify you are (?:a )?human",
+    "unusual traffic",
+    "subscribe to (?:continue|read)",
+    "are you a robot"
+  ],
+  "rules": {
+    "SCHEMA_001": {
+      "severity": "ERROR",
+      "description": "Duplicate column names in the CSV header"
+    },
+    "SCHEMA_002": {
+      "severity": "ERROR",
+      "description": "Required column missing"
+    },
+    "SCHEMA_003": {
+      "severity": "INFO",
+      "description": "Optional column not present"
+    },
+    "SCHEMA_004": {
+      "severity": "INFO",
+      "description": "Unexpected extra column"
+    },
+    "FIELD_001": {
+      "severity": "ERROR",
+      "description": "Required field missing or blank"
+    },
+    "ID_001": {
+      "severity": "ERROR",
+      "description": "article_id repeated (every occurrence after the first)"
+    },
+    "URL_001": {
+      "severity": "ERROR",
+      "description": "URL is not a plausible HTTP(S) URL with a hostname"
+    },
+    "URL_002": {
+      "severity": "WARNING",
+      "description": "URL is a site root / homepage, not an article page"
+    },
+    "TIME_001": {
+      "severity": "ERROR",
+      "description": "published_at present but cannot be parsed"
+    },
+    "TIME_002": {
+      "severity": "ERROR",
+      "description": "published_at is in the future"
+    },
+    "TIME_003": {
+      "severity": "ERROR",
+      "description": "published_at earlier than minimum plausible date"
+    },
+    "TIME_004": {
+      "severity": "ERROR",
+      "description": "published_at is later than scraped_at"
+    },
+    "TIME_005": {
+      "severity": "WARNING",
+      "description": "scraped_at present but cannot be parsed"
+    },
+    "TIME_006": {
+      "severity": "INFO",
+      "description": "scraped_at missing (traceability reduced)"
+    },
+    "TIME_007": {
+      "severity": "INFO",
+      "description": "Timestamp has no offset and timezone is missing/unrecognised; UTC assumed"
+    },
+    "TEXT_001": {
+      "severity": "WARNING",
+      "description": "Title shorter than minimum length"
+    },
+    "TEXT_002": {
+      "severity": "WARNING",
+      "description": "Content shorter than minimum length"
+    },
+    "TEXT_003": {
+      "severity": "WARNING",
+      "description": "Content looks like a block / CAPTCHA / access-error page"
+    },
+    "TEXT_004": {
+      "severity": "WARNING",
+      "description": "Title longer than maximum length"
+    },
+    "TEXT_005": {
+      "severity": "WARNING",
+      "description": "Residual HTML tags or entities in title/content"
+    },
+    "TEXT_006": {
+      "severity": "WARNING",
+      "description": "Possible mojibake (broken character encoding)"
+    },
+    "AUTH_001": {
+      "severity": "INFO",
+      "description": "Author missing"
+    },
+    "DUP_001": {
+      "severity": "WARNING",
+      "description": "Duplicate story removed: same URL as an earlier-published copy"
+    },
+    "DUP_002": {
+      "severity": "WARNING",
+      "description": "Duplicate story removed: same headline as an earlier-published copy"
+    },
+    "DUP_003": {
+      "severity": "WARNING",
+      "description": "Duplicate story removed: same body text as an earlier-published copy"
+    },
+    "DUP_004": {
+      "severity": "WARNING",
+      "description": "Duplicate story removed: linked to earlier copy through a chain of matches"
+    }
+  }
+}
